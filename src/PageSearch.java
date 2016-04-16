@@ -30,9 +30,9 @@ public class PageSearch implements Runnable {
                 }
 
             } catch (IOException e) {
-                System.exit(2);   //Blog is kill
+                System.exit(2);   //Page is kill
             } catch (URISyntaxException e) {
-                System.exit(3); //YouTube is kill
+                System.exit(3); //URL is bad
             }
         }
     }
