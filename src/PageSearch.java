@@ -21,6 +21,7 @@ public class PageSearch implements Runnable {
                 String u_s = new Scanner(new URL(ws_name).openStream(), "UTF-8").useDelimiter("\\A").next();
                 if (!u_s.equals(ws)) {
                     java.awt.Desktop.getDesktop().browse(new URI(ws_name));
+                    ws = u_s;
                 }
                 try {
                     Thread.sleep(360000);
