@@ -1,7 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,6 +11,11 @@ import java.util.Vector;
 public class Main {
     public static void main(String[] args) {
         Vector<String> websites = new Vector<>();
+        try {
+            UI ui = new UI(websites);
+        } catch (DialogueClicked e){
+
+        }
         try(BufferedReader br = new BufferedReader(new FileReader("resources/websites.txt"))) {
             for(String line; (line = br.readLine()) != null; ) {
                 websites.add(line);
@@ -28,7 +29,7 @@ public class Main {
         for (String string : websites){
             try {
                 (new Thread(new PageSearch(string))).start();
-                System.out.println("Added!");
+                System.out.println(string + "monitor added!");
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -37,24 +38,6 @@ public class Main {
             }
         }
 
-        if (SystemTray.isSupported()) { //Here we create the Taskbar Icon, if it's supported on this platform
-            final SystemTray sys_t = SystemTray.getSystemTray();
-            final TrayIcon t_icon = new TrayIcon(new ImageIcon("resources/images/systi.png").getImage(), String.format("Monitoring Sites:\n%s\nClick to close", websites.toString()));
-            t_icon.setImageAutoSize(true);
-            MouseAdapter m_adapter = new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    sys_t.remove(t_icon);
-                    System.exit(0);
-                }
-            };
 
-            t_icon.addMouseListener(m_adapter);
-            try {
-                sys_t.add(t_icon);
-            } catch (AWTException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
