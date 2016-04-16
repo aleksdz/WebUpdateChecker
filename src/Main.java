@@ -11,11 +11,7 @@ import java.util.Vector;
 public class Main {
     public static void main(String[] args) {
         Vector<String> websites = new Vector<>();
-        try {
-            UI ui = new UI(websites);
-        } catch (DialogueClicked e){
-
-        }
+        UI ui = new UI(websites);
         try(BufferedReader br = new BufferedReader(new FileReader("resources/websites.txt"))) {
             for(String line; (line = br.readLine()) != null; ) {
                 websites.add(line);
